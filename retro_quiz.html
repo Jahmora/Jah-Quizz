@@ -54,9 +54,9 @@
             width: 100px;
             height: 100px;
             background-color: #00FF00;
-            margin: 0 auto 20px;
+            margin: 20px auto;
             border-radius: 50%;
-            background-image: url('IA avatar.png');
+            background-image: url('ia_avatar.png');
             background-size: cover;
         }
         .game-container {
@@ -138,6 +138,7 @@
             showIntro();
             document.getElementById('start').onclick = function() {
                 let level = document.getElementById('level').value;
+                document.querySelector('.avatar').style.display = 'block';
                 showQuestion(level);
             };
         };
@@ -146,12 +147,12 @@
 <body>
     <div class="crt"></div>
     <h1>Quizz Rétro Gaming</h1>
-    <div class="avatar"></div>
     <div class="intro">
         <img src="intro_image.png" alt="Intro" style="width: 100%; max-width: 600px;">
-        <p>Produit par Game Studio XYZ</p>
+        <p>Studio Jahmora Production</p>
     </div>
     <div class="game-container">
+        <div class="avatar" style="display: none;"></div>
         <label for="level">Choisissez un niveau :</label>
         <select id="level">
             <option value="Facile">Facile</option>
