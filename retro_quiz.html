@@ -26,13 +26,13 @@
         }
         .question {
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
         .choices button {
             display: block;
             width: 80%;
-            margin: 10px auto;
-            padding: 10px;
+            margin: 20px auto;
+            padding: 15px;
             font-size: 18px;
             cursor: pointer;
             background-color: #000;
@@ -50,8 +50,14 @@
             background-color: #00FF00;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background-image: url('IA avatar.png');
+            background-image: url('ia_avatar.png');
             background-size: cover;
+        }
+        .game-container {
+            display: inline-block;
+            border: 5px solid #00FF00;
+            padding: 20px;
+            margin-top: 20px;
         }
     </style>
     <script>
@@ -126,15 +132,17 @@
     <div class="crt"></div>
     <h1>Quizz Rétro Gaming</h1>
     <div class="avatar"></div>
-    <label for="level">Choisissez un niveau :</label>
-    <select id="level">
-        <option value="Facile">Facile</option>
-        <option value="Moyen">Moyen</option>
-        <option value="Difficile">Difficile</option>
-    </select>
-    <button id="start">Commencer</button>
-    <div class="question" id="question"></div>
-    <div class="choices" id="choices"></div>
-    <div class="result" id="result"></div>
+    <div class="game-container">
+        <label for="level">Choisissez un niveau :</label>
+        <select id="level">
+            <option value="Facile">Facile</option>
+            <option value="Moyen">Moyen</option>
+            <option value="Difficile">Difficile</option>
+        </select>
+        <button id="start">Commencer</button>
+        <div class="question" id="question"></div>
+        <div class="choices" id="choices"></div>
+        <div class="result" id="result"></div>
+    </div>
 </body>
 </html>
