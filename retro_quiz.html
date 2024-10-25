@@ -44,6 +44,15 @@
             font-size: 20px;
             margin-top: 20px;
         }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #00FF00;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background-image: url('ia_avatar.png'); /* Assurez-vous d'avoir cette image dans votre dossier */
+            background-size: cover;
+        }
     </style>
     <script>
         let questions = {
@@ -94,6 +103,7 @@
 <body>
     <div class="crt"></div>
     <h1>Quizz Rétro Gaming</h1>
+    <div class="avatar"></div> <!-- Avatar IA -->
     <label for="level">Choisissez un niveau :</label>
     <select id="level">
         <option value="Facile">Facile</option>
