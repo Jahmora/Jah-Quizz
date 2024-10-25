@@ -19,6 +19,10 @@ function showIntro() {
 }
 
 function showQuestion(level) {
+    // Cacher le bouton de démarrage et le sélecteur de niveau
+    document.getElementById('start').style.display = 'none';
+    document.getElementById('level').style.display = 'none';
+
     const lang = detectLanguage();
     const questionSet = questions[lang][level];
     const question = questionSet[Math.floor(Math.random() * questionSet.length)];
@@ -41,7 +45,14 @@ function checkAnswer(selected, correct, level) {
         incorrectSound.play();
         result.innerText = 'Incorrect!';
     }
-    setTimeout(() => showQuestion(level), 2000);
+
+    // Attendre que le son soit joué avant de changer la question
+    const soundDuration = selected === correct ? correctSound.duration * 1000 : incorrectSound.duration * 1000;
+
+    setTimeout(() => {
+        result.innerText = ''; // Effacer le résultat
+        showQuestion(level);
+    }, soundDuration + 1000); // Ajout d'une seconde pour laisser le temps de lire le message
 }
 
 window.onload = function() {
