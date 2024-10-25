@@ -24,6 +24,12 @@
             background-size: 100% 3px;
             z-index: 2;
         }
+        .intro, .game-container {
+            display: none;
+        }
+        .show {
+            display: block !important;
+        }
         .question {
             font-size: 24px;
             margin-bottom: 40px;
@@ -50,7 +56,7 @@
             background-color: #00FF00;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background-image: url('IA avatar.png');
+            background-image: url('ia_avatar.png');
             background-size: cover;
         }
         .game-container {
@@ -97,6 +103,14 @@
             return userLang.includes('fr') ? 'fr' : 'en';
         }
 
+        function showIntro() {
+            document.querySelector('.intro').classList.add('show');
+            setTimeout(() => {
+                document.querySelector('.intro').classList.remove('show');
+                document.querySelector('.game-container').classList.add('show');
+            }, 5000); // 5 secondes pour l'intro
+        }
+
         function showQuestion(level) {
             let lang = detectLanguage();
             let question = questions[lang][level][Math.floor(Math.random() * questions[lang][level].length)];
@@ -121,6 +135,7 @@
         }
 
         window.onload = function() {
+            showIntro();
             document.getElementById('start').onclick = function() {
                 let level = document.getElementById('level').value;
                 showQuestion(level);
@@ -132,6 +147,10 @@
     <div class="crt"></div>
     <h1>Quizz Rétro Gaming</h1>
     <div class="avatar"></div>
+    <div class="intro">
+        <img src="intro_image.png" alt="Intro" style="width: 100%; max-width: 600px;">
+        <p>Produit par Game Studio XYZ</p>
+    </div>
     <div class="game-container">
         <label for="level">Choisissez un niveau :</label>
         <select id="level">
