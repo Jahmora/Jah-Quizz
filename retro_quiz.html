@@ -2,18 +2,21 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizz Rétro Gaming</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        /* Styles de base */
         body {
             font-family: 'Press Start 2P', cursive;
             background-color: #000;
-            background-image: url('background.png'); /* Image de fond rétro */
+            background-image: url('background.png');
             color: #00FF00;
             text-align: center;
-            padding: 50px;
+            padding: 5vh;
             background-size: cover;
-            overflow: hidden; /* Pour éviter le défilement */
+            overflow: hidden;
         }
         .crt {
             position: absolute;
@@ -30,32 +33,33 @@
         .intro, .game-container {
             display: none;
             border: 5px solid #00FF00;
-            padding: 20px;
-            margin-top: 20px;
-            background-color: rgba(0, 0, 0, 0.7); /* Arrière-plan semi-transparent */
+            padding: 2vh 2vw;
+            margin-top: 2vh;
+            background-color: rgba(0, 0, 0, 0.7);
         }
         .show {
             display: block !important;
         }
         .question {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 3vh;
+            margin-bottom: 2vh;
         }
         .avatar {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
+            width: 20vw;
+            height: 20vw;
+            max-width: 100px;
+            max-height: 100px;
+            margin: 0 auto 2vh;
             border-radius: 50%;
             background-image: url('IA avatar.png');
             background-size: cover;
-            border: 2px solid #00FF00; /* Bordure pour l'avatar */
+            border: 2px solid #00FF00;
         }
         .choices button {
-            display: block;
             width: 80%;
-            margin: 20px auto;
-            padding: 15px;
-            font-size: 18px;
+            margin: 2vh auto;
+            padding: 2vh;
+            font-size: 2vh;
             cursor: pointer;
             background-color: #000;
             color: #00FF00;
@@ -64,13 +68,31 @@
             transition: transform 0.1s, background-color 0.2s;
         }
         .choices button:hover {
-            transform: scale(1.1); /* Effet de survol */
-            background-color: #00FF00; /* Change la couleur au survol */
-            color: #000; /* Change le texte au survol */
+            transform: scale(1.1);
+            background-color: #00FF00;
+            color: #000;
         }
         .result {
-            font-size: 20px;
-            margin-top: 20px;
+            font-size: 2vh;
+            margin-top: 2vh;
+        }
+        
+        /* Adaptation pour petits écrans */
+        @media (max-width: 768px) {
+            body {
+                padding: 2vh;
+            }
+            .question {
+                font-size: 4vw;
+            }
+            .avatar {
+                width: 40vw;
+                height: 40vw;
+            }
+            .choices button {
+                font-size: 4vw;
+                width: 90%;
+            }
         }
     </style>
     <script>
@@ -101,12 +123,12 @@
         }
 
         function showIntro() {
-            introSound.play(); // Joue le son d'intro
+            introSound.play();
             document.querySelector('.intro').classList.add('show');
             setTimeout(() => {
                 document.querySelector('.intro').classList.remove('show');
                 document.querySelector('.game-container').classList.add('show');
-            }, 5000); // 5 secondes pour l'intro
+            }, 5000);
         }
 
         function showQuestion(level) {
