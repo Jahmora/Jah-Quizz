@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Quizz Rétro Gaming</title>
+    <style>
+        body {
+            font-family: 'Courier', monospace;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .choices button {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        let questions = [
+            {"question": "Quel est le personnage principal de Super Mario?", "choices": ["Luigi", "Mario", "Peach"], "answer": 1},
+            {"question": "En quelle année le jeu Pac-Man est-il sorti?", "choices": ["1980", "1985", "1990"], "answer": 0},
+            {"question": "Sur quelle console est sorti le jeu Sonic the Hedgehog?", "choices": ["NES", "SNES", "Sega Genesis"], "answer": 2},
+        ];
+
+        function showQuestion() {
+            let question = questions[Math.floor(Math.random() * questions.length)];
+            document.getElementById('question').innerText = question.question;
+            document.getElementById('choices').innerHTML = '';
+            question.choices.forEach((choice, index) => {
+                let button = document.createElement('button');
+                button.innerText = choice;
+                button.onclick = () => checkAnswer(index, question.answer);
+                document.getElementById('choices').appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            let result = document.getElementById('result');
+            if (selected === correct) {
+                result.innerText = 'Correct!';
+            } else {
+                result.innerText = 'Incorrect!';
+            }
+            setTimeout(showQuestion, 2000);
+        }
+
+        window.onload = showQuestion;
+    </script>
+</head>
+<body>
+    <div class="question" id="question"></div>
+    <div class="choices" id="choices"></div>
+    <div class="result" id="result"></div>
+</body>
+</html>
