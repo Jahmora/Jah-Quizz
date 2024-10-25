@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Quizz Rétro Gaming</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         body {
             font-family: 'Press Start 2P', cursive;
             background-color: #000;
             color: #00FF00;
             text-align: center;
             padding: 50px;
-            font-size: 16px;
         }
         .crt {
             position: absolute;
@@ -68,19 +68,19 @@
             question.choices.forEach((choice, index) => {
                 let button = document.createElement('button');
                 button.innerText = choice;
-                button.onclick = () => checkAnswer(index, question.answer);
+                button.onclick = () => checkAnswer(index, question.answer, level);
                 document.getElementById('choices').appendChild(button);
             });
         }
 
-        function checkAnswer(selected, correct) {
+        function checkAnswer(selected, correct, level) {
             let result = document.getElementById('result');
             if (selected === correct) {
                 result.innerText = 'Correct!';
             } else {
                 result.innerText = 'Incorrect!';
             }
-            setTimeout(() => showQuestion(document.getElementById('level').value), 2000);
+            setTimeout(() => showQuestion(level), 2000);
         }
 
         window.onload = function() {
