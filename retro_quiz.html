@@ -24,145 +24,22 @@
             background-size: 100% 3px;
             z-index: 2;
         }
-        .intro, .game-container {
+        .game-container {
             display: none;
         }
-        .show {
-            display: block !important;
-        }
-        .question {
-            font-size: 24px;
-            margin-bottom: 40px;
-        }
-        .choices button {
+        .intro {
             display: block;
-            width: 80%;
-            margin: 20px auto;
-            padding: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #000;
-            color: #00FF00;
-            border: 2px solid #00FF00;
-            border-radius: 5px;
-        }
-        .result {
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        .avatar {
-            width: 100px;
-            height: 100px;
-            background-color: #00FF00;
-            margin: 20px auto;
-            border-radius: 50%;
-            background-image: url('IA avatar.png');
-            background-size: cover;
-        }
-        .game-container {
-            display: inline-block;
-            border: 5px solid #00FF00;
-            padding: 20px;
-            margin-top: 20px;
         }
     </style>
-    <script>
-        let questions = {
-            "fr": {
-                "Facile": [
-                    {"question": "Quel est le personnage principal de Super Mario?", "choices": ["Luigi", "Mario", "Peach"], "answer": 1},
-                    {"question": "En quelle année le jeu Pac-Man est-il sorti?", "choices": ["1980", "1985", "1990"], "answer": 0}
-                ],
-                "Moyen": [
-                    {"question": "Sur quelle console est sorti le jeu Sonic the Hedgehog?", "choices": ["NES", "SNES", "Sega Genesis"], "answer": 2},
-                    {"question": "Combien de lignes faut-il effacer pour faire un Tetris?", "choices": ["2", "3", "4"], "answer": 2}
-                ],
-                "Difficile": [
-                    {"question": "Quel est le boss final du jeu 'The Legend of Zelda: Ocarina of Time'?", "choices": ["Ganon", "Ganondorf", "Zant"], "answer": 1},
-                    {"question": "Dans quel jeu apparaît le personnage de 'M. Bison'?", "choices": ["Street Fighter", "Mortal Kombat", "Tekken"], "answer": 0}
-                ]
-            },
-            "en": {
-                "Easy": [
-                    {"question": "Who is the main character of Super Mario?", "choices": ["Luigi", "Mario", "Peach"], "answer": 1},
-                    {"question": "In which year was the game Pac-Man released?", "choices": ["1980", "1985", "1990"], "answer": 0}
-                ],
-                "Medium": [
-                    {"question": "On which console was Sonic the Hedgehog released?", "choices": ["NES", "SNES", "Sega Genesis"], "answer": 2},
-                    {"question": "How many lines do you need to clear to make a Tetris?", "choices": ["2", "3", "4"], "answer": 2}
-                ],
-                "Hard": [
-                    {"question": "Who is the final boss in 'The Legend of Zelda: Ocarina of Time'?", "choices": ["Ganon", "Ganondorf", "Zant"], "answer": 1},
-                    {"question": "In which game does the character 'M. Bison' appear?", "choices": ["Street Fighter", "Mortal Kombat", "Tekken"], "answer": 0}
-                ]
-            }
-        };
-
-        function detectLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            return userLang.includes('fr') ? 'fr' : 'en';
-        }
-
-        function showIntro() {
-            document.querySelector('.intro').classList.add('show');
-            setTimeout(() => {
-                document.querySelector('.intro').classList.remove('show');
-                document.querySelector('.game-container').classList.add('show');
-            }, 5000); // 5 secondes pour l'intro
-        }
-
-        function showQuestion(level) {
-            let lang = detectLanguage();
-            let question = questions[lang][level][Math.floor(Math.random() * questions[lang][level].length)];
-            document.getElementById('question').innerText = question.question;
-            document.getElementById('choices').innerHTML = '';
-            question.choices.forEach((choice, index) => {
-                let button = document.createElement('button');
-                button.innerText = choice;
-                button.onclick = () => checkAnswer(index, question.answer, level);
-                document.getElementById('choices').appendChild(button);
-            });
-        }
-
-        function checkAnswer(selected, correct, level) {
-            let result = document.getElementById('result');
-            if (selected === correct) {
-                result.innerText = detectLanguage() === 'fr' ? 'Correct!' : 'Correct!';
-            } else {
-                result.innerText = detectLanguage() === 'fr' ? 'Incorrect!' : 'Incorrect!';
-            }
-            setTimeout(() => showQuestion(level), 2000);
-        }
-
-        window.onload = function() {
-            showIntro();
-            document.getElementById('start').onclick = function() {
-                let level = document.getElementById('level').value;
-                document.querySelector('.avatar').style.display = 'block';
-                showQuestion(level);
-            };
-        };
-    </script>
 </head>
 <body>
     <div class="crt"></div>
-    <h1>Quizz Rétro Gaming</h1>
     <div class="intro">
         <img src="intro_image.png" alt="Intro" style="width: 100%; max-width: 600px;">
         <p>Studio Jahmora Production</p>
     </div>
     <div class="game-container">
-        <div class="avatar" style="display: none;"></div>
-        <label for="level">Choisissez un niveau :</label>
-        <select id="level">
-            <option value="Facile">Facile</option>
-            <option value="Moyen">Moyen</option>
-            <option value="Difficile">Difficile</option>
-        </select>
-        <button id="start">Commencer</button>
-        <div class="question" id="question"></div>
-        <div class="choices" id="choices"></div>
-        <div class="result" id="result"></div>
+        <!-- Contenu du jeu masqué à ce stade -->
     </div>
 </body>
 </html>
