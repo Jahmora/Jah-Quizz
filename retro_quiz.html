@@ -15,7 +15,10 @@
             color: #00FF00;
             text-align: center;
             padding: 5vh;
-            background-size: cover;
+            background-size: cover; /* Remplir l'écran sans distorsion */
+            background-position: center; /* Centre l'image */
+            background-attachment: fixed; /* Fixe l'image de fond */
+            background-repeat: no-repeat; /* Empêche la répétition de l'image */
             overflow: hidden;
         }
         .crt {
@@ -80,6 +83,7 @@
         /* Adaptation pour petits écrans */
         @media (max-width: 768px) {
             body {
+                background-size: contain; /* Contient l'image dans la largeur de l'écran */
                 padding: 2vh;
             }
             .question {
