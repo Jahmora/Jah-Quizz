@@ -28,14 +28,23 @@
         }
     </style>
     <script>
-        let questions = [
-            {"question": "Quel est le personnage principal de Super Mario?", "choices": ["Luigi", "Mario", "Peach"], "answer": 1},
-            {"question": "En quelle année le jeu Pac-Man est-il sorti?", "choices": ["1980", "1985", "1990"], "answer": 0},
-            {"question": "Sur quelle console est sorti le jeu Sonic the Hedgehog?", "choices": ["NES", "SNES", "Sega Genesis"], "answer": 2},
-        ];
+        let questions = {
+            "Facile": [
+                {"question": "Quel est le personnage principal de Super Mario?", "choices": ["Luigi", "Mario", "Peach"], "answer": 1},
+                {"question": "En quelle année le jeu Pac-Man est-il sorti?", "choices": ["1980", "1985", "1990"], "answer": 0}
+            ],
+            "Moyen": [
+                {"question": "Sur quelle console est sorti le jeu Sonic the Hedgehog?", "choices": ["NES", "SNES", "Sega Genesis"], "answer": 2},
+                {"question": "Combien de lignes faut-il effacer pour faire un Tetris?", "choices": ["2", "3", "4"], "answer": 2}
+            ],
+            "Difficile": [
+                {"question": "Quel est le boss final du jeu 'The Legend of Zelda: Ocarina of Time'?", "choices": ["Ganon", "Ganondorf", "Zant"], "answer": 1},
+                {"question": "Dans quel jeu apparaît le personnage de 'M. Bison'?", "choices": ["Street Fighter", "Mortal Kombat", "Tekken"], "answer": 0}
+            ]
+        };
 
-        function showQuestion() {
-            let question = questions[Math.floor(Math.random() * questions.length)];
+        function showQuestion(level) {
+            let question = questions[level][Math.floor(Math.random() * questions[level].length)];
             document.getElementById('question').innerText = question.question;
             document.getElementById('choices').innerHTML = '';
             question.choices.forEach((choice, index) => {
@@ -53,13 +62,26 @@
             } else {
                 result.innerText = 'Incorrect!';
             }
-            setTimeout(showQuestion, 2000);
+            setTimeout(() => showQuestion(document.getElementById('level').value), 2000);
         }
 
-        window.onload = showQuestion;
+        window.onload = function() {
+            document.getElementById('start').onclick = function() {
+                let level = document.getElementById('level').value;
+                showQuestion(level);
+            };
+        };
     </script>
 </head>
 <body>
+    <h1>Quizz Rétro Gaming</h1>
+    <label for="level">Choisissez un niveau :</label>
+    <select id="level">
+        <option value="Facile">Facile</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Difficile">Difficile</option>
+    </select>
+    <button id="start">Commencer</button>
     <div class="question" id="question"></div>
     <div class="choices" id="choices"></div>
     <div class="result" id="result"></div>
