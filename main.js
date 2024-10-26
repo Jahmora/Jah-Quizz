@@ -4,6 +4,8 @@ const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
 const introSound = new Audio('intro.mp3');
 
+let score = 0; // Variable pour suivre le score
+
 function detectLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
     return userLang.includes('fr') ? 'fr' : 'en';
@@ -40,11 +42,14 @@ function checkAnswer(selected, correct, level) {
     if (selected === correct) {
         correctSound.play();
         result.innerText = 'Correct!';
+        score++; // Incrémente le score
     } else {
         incorrectSound.play();
         result.innerText = 'Incorrect!';
     }
     
+    document.getElementById('score').innerText = `Score: ${score}`; // Met à jour le score
+
     // Cacher le bouton de démarrage et le menu de niveau après le début du quiz
     document.getElementById('start').style.display = 'none';
     document.getElementById('level').style.display = 'none';
@@ -54,6 +59,20 @@ function checkAnswer(selected, correct, level) {
         showQuestion(level); // Montrer la prochaine question
     }, 2000);
 }
+
+function endGame() {
+    document.getElementById('end-screen').classList.add('show');
+    document.getElementById('final-score').innerText = `Votre score final est: ${score}`;
+    document.querySelector('.game-container').classList.remove('show');
+}
+
+document.getElementById('restart').onclick = function() {
+    score = 0; // Réinitialiser le score
+    document.getElementById('score').innerText = `Score: ${score}`;
+    document.getElementById('end-screen').classList.remove('show');
+    document.getElementById('start').style.display = 'block';
+    document.getElementById('level').style.display = 'block';
+};
 
 window.onload = function() {
     showIntro();
