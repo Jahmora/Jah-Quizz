@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizz Rétro Gaming</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers votre fichier CSS -->
     <script src="questions.js"></script>
     <script src="main.js" defer></script>
 </head>
@@ -13,12 +13,13 @@
     
     <div class="intro">
         <img src="intro_image.png" alt="Intro" style="width: 100%; max-width: 600px;">
-        <p>Studio Jahmora Production</p>
+        <h1>Quizz Rétro Gaming</h1>
+        <p>Testez vos connaissances sur les jeux vidéo classiques !</p>
     </div>
     
     <div class="game-container">
         <div class="avatar"></div>
-        <div id="start-container"> <!-- Nouveau conteneur pour le label et le bouton -->
+        <div id="start-container">
             <label for="level">Choisissez un niveau :</label>
             <select id="level">
                 <option value="Facile">Facile</option>
@@ -30,7 +31,6 @@
         <div class="question" id="question"></div>
         <div class="choices" id="choices"></div>
         <div class="result" id="result"></div>
-        <div class="score" id="score">Score: 0</div> <!-- Zone pour afficher le score -->
     </div>
 </body>
 </html>
