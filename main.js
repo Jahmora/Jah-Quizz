@@ -4,7 +4,7 @@ const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
 const introSound = new Audio('intro.mp3');
 
-let score = 0; // Variable pour suivre le score
+let score = 0; // Variable pour le score
 
 function detectLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
@@ -24,10 +24,8 @@ function showQuestion(level) {
     const lang = detectLanguage();
     const questionSet = questions[lang][level];
     const question = questionSet[Math.floor(Math.random() * questionSet.length)];
-    
     document.getElementById('question').innerText = question.question;
     document.getElementById('choices').innerHTML = '';
-    
     question.choices.forEach((choice, index) => {
         const button = document.createElement('button');
         button.innerText = choice;
@@ -38,46 +36,36 @@ function showQuestion(level) {
 
 function checkAnswer(selected, correct, level) {
     const result = document.getElementById('result');
-    
     if (selected === correct) {
         correctSound.play();
         result.innerText = 'Correct!';
-        score++; // Incrémente le score
+        score++; // Augmenter le score pour une réponse correcte
     } else {
         incorrectSound.play();
         result.innerText = 'Incorrect!';
     }
-    
-    document.getElementById('score').innerText = `Score: ${score}`; // Met à jour le score
-
-    // Cacher le bouton de démarrage et le menu de niveau après le début du quiz
-    document.getElementById('start').style.display = 'none';
-    document.getElementById('level').style.display = 'none';
-
-    setTimeout(() => {
-        result.innerText = ''; // Effacer le résultat précédent
-        showQuestion(level); // Montrer la prochaine question
-    }, 2000);
+    updateScore(); // Mettre à jour l'affichage du score
+    setTimeout(() => showQuestion(level), 2000);
 }
 
-function endGame() {
-    document.getElementById('end-screen').classList.add('show');
-    document.getElementById('final-score').innerText = `Votre score final est: ${score}`;
-    document.querySelector('.game-container').classList.remove('show');
+function updateScore() {
+    document.getElementById('score').innerText = `Score: ${score}`; // Mettre à jour l'affichage du score
 }
-
-document.getElementById('restart').onclick = function() {
-    score = 0; // Réinitialiser le score
-    document.getElementById('score').innerText = `Score: ${score}`;
-    document.getElementById('end-screen').classList.remove('show');
-    document.getElementById('start').style.display = 'block';
-    document.getElementById('level').style.display = 'block';
-};
 
 window.onload = function() {
     showIntro();
     document.getElementById('start').onclick = function() {
         const level = document.getElementById('level').value;
+        this.style.display = 'none'; // Faire disparaître le bouton "Commencer"
         showQuestion(level);
+    };
+    
+    document.getElementById('restart').onclick = function() {
+        score = 0; // Réinitialiser le score
+        updateScore();
+        document.getElementById('end-screen').style.display = 'none'; // Masquer l'écran de fin
+        document.getElementById('start').style.display = 'block'; // Afficher le bouton "Commencer"
+        document.querySelector('.game-container').classList.remove('show'); // Masquer le conteneur de jeu
+        showIntro(); // Afficher l'introduction à nouveau
     };
 };
