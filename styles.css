@@ -26,21 +26,20 @@ body {
 
 .intro {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Centrer verticalement */
+    display: flex; /* Alignement flex pour centrer */
+    justify-content: center; /* Centrage horizontal */
+    align-items: center; /* Centrage vertical */
 }
 
 .intro img {
-    width: 100%;
-    max-width: 600px;
+    width: 100%; /* Largeur de l'image */
+    max-width: 600px; /* Largeur max de l'image */
     z-index: 1; /* Positionner l'image derrière le texte */
 }
 
 .intro-text {
     position: absolute;
-    top: 20%; /* Ajuster la position selon le besoin */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
