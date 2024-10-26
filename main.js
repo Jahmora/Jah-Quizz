@@ -57,6 +57,7 @@ window.onload = function() {
     document.getElementById('start').onclick = function() {
         const level = document.getElementById('level').value;
         this.style.display = 'none'; // Faire disparaître le bouton "Commencer"
+        document.querySelector('label[for="level"]').style.display = 'none'; // Faire disparaître le label "Choisissez un niveau"
         showQuestion(level);
     };
     
@@ -65,6 +66,7 @@ window.onload = function() {
         updateScore();
         document.getElementById('end-screen').style.display = 'none'; // Masquer l'écran de fin
         document.getElementById('start').style.display = 'block'; // Afficher le bouton "Commencer"
+        document.querySelector('label[for="level"]').style.display = 'block'; // Afficher à nouveau le label
         document.querySelector('.game-container').classList.remove('show'); // Masquer le conteneur de jeu
         showIntro(); // Afficher l'introduction à nouveau
     };
