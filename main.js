@@ -1,5 +1,6 @@
 const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
+const introSound = new Audio('intro.mp3');
 
 function detectLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
@@ -11,7 +12,7 @@ function showIntro() {
     setTimeout(() => {
         document.querySelector('.intro').classList.remove('show');
         document.querySelector('.game-container').classList.add('show');
-    }, 5000);
+    }, 5000); // Durée d'affichage de l'intro
 }
 
 function showQuestion(level) {
