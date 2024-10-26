@@ -1,6 +1,10 @@
+// main.js
+
 const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
 const introSound = new Audio('intro.mp3');
+
+let score = 0; // Variable pour le score
 
 function detectLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
@@ -8,11 +12,12 @@ function detectLanguage() {
 }
 
 function showIntro() {
+    introSound.play();
     document.querySelector('.intro').classList.add('show');
     setTimeout(() => {
         document.querySelector('.intro').classList.remove('show');
         document.querySelector('.game-container').classList.add('show');
-    }, 5000); // Durée d'affichage de l'intro
+    }, 5000);
 }
 
 function showQuestion(level) {
@@ -34,18 +39,23 @@ function checkAnswer(selected, correct, level) {
     if (selected === correct) {
         correctSound.play();
         result.innerText = 'Correct!';
+        score++; // Augmenter le score pour une réponse correcte
     } else {
         incorrectSound.play();
         result.innerText = 'Incorrect!';
     }
+    updateScore(); // Mettre à jour l'affichage du score
     setTimeout(() => showQuestion(level), 2000);
+}
+
+function updateScore() {
+    document.getElementById('score').innerText = `Score: ${score}`; // Mettre à jour l'affichage du score
 }
 
 window.onload = function() {
     showIntro();
     document.getElementById('start').onclick = function() {
         const level = document.getElementById('level').value;
-        this.style.display = 'none'; // Faire disparaître le bouton "Commencer"
         document.getElementById('start-container').style.display = 'none'; // Faire disparaître le conteneur de niveau
         showQuestion(level);
     };
