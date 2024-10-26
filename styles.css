@@ -24,17 +24,20 @@ body {
     z-index: 2;
 }
 
-.intro {
-    position: relative;
-    display: flex; /* Alignement flex pour centrer */
-    justify-content: center; /* Centrage horizontal */
-    align-items: center; /* Centrage vertical */
+.intro, .game-container {
+    display: none;
+    border: 5px solid #00FF00;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-.intro img {
-    width: 100%; /* Largeur de l'image */
-    max-width: 600px; /* Largeur max de l'image */
-    z-index: 1; /* Positionner l'image derrière le texte */
+.show {
+    display: block !important;
+}
+
+.intro {
+    position: relative;
 }
 
 .intro-text {
@@ -46,7 +49,6 @@ body {
     background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
     padding: 20px;
     border-radius: 10px;
-    z-index: 2; /* Positionner le texte au-dessus de l'image */
 }
 
 .intro h1 {
@@ -66,18 +68,6 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-.game-container {
-    display: none;
-    border: 5px solid #00FF00;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.show {
-    display: block !important;
 }
 
 .avatar {
