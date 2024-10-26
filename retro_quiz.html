@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizz Rétro Gaming</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers le fichier CSS -->
+    
+    <!-- Import des fichiers JavaScript -->
     <script src="questions.js"></script>
     <script src="main.js" defer></script>
 </head>
@@ -18,23 +20,19 @@
     
     <div class="game-container">
         <div class="avatar"></div>
-        <label for="level">Choisissez un niveau :</label>
-        <select id="level">
-            <option value="Facile">Facile</option>
-            <option value="Moyen">Moyen</option>
-            <option value="Difficile">Difficile</option>
-        </select>
-        <button id="start">Commencer</button>
+        <div id="start-container"> <!-- Nouveau conteneur pour le label et le bouton -->
+            <label for="level">Choisissez un niveau :</label>
+            <select id="level">
+                <option value="Facile">Facile</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Difficile">Difficile</option>
+            </select>
+            <button id="start">Commencer</button>
+        </div>
         <div class="question" id="question"></div>
         <div class="choices" id="choices"></div>
         <div class="result" id="result"></div>
-        <div class="score" id="score">Score: 0</div>
-    </div>
-    
-    <div class="end-screen" id="end-screen">
-        <h2>Fin du Quiz!</h2>
-        <p id="final-score"></p>
-        <button id="restart">Rejouer</button>
+        <div id="score">Score: 0</div> <!-- Affichage du score -->
     </div>
 </body>
 </html>
