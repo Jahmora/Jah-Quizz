@@ -19,15 +19,13 @@ function showIntro() {
 }
 
 function showQuestion(level) {
-    // Cacher le bouton de démarrage et le sélecteur de niveau
-    document.getElementById('start').style.display = 'none';
-    document.getElementById('level').style.display = 'none';
-
     const lang = detectLanguage();
     const questionSet = questions[lang][level];
     const question = questionSet[Math.floor(Math.random() * questionSet.length)];
+    
     document.getElementById('question').innerText = question.question;
     document.getElementById('choices').innerHTML = '';
+    
     question.choices.forEach((choice, index) => {
         const button = document.createElement('button');
         button.innerText = choice;
@@ -38,6 +36,7 @@ function showQuestion(level) {
 
 function checkAnswer(selected, correct, level) {
     const result = document.getElementById('result');
+    
     if (selected === correct) {
         correctSound.play();
         result.innerText = 'Correct!';
@@ -45,14 +44,15 @@ function checkAnswer(selected, correct, level) {
         incorrectSound.play();
         result.innerText = 'Incorrect!';
     }
-
-    // Attendre que le son soit joué avant de changer la question
-    const soundDuration = selected === correct ? correctSound.duration * 1000 : incorrectSound.duration * 1000;
+    
+    // Cacher le bouton de démarrage et le menu de niveau après le début du quiz
+    document.getElementById('start').style.display = 'none';
+    document.getElementById('level').style.display = 'none';
 
     setTimeout(() => {
-        result.innerText = ''; // Effacer le résultat
-        showQuestion(level);
-    }, soundDuration + 1000); // Ajout d'une seconde pour laisser le temps de lire le message
+        result.innerText = ''; // Effacer le résultat précédent
+        showQuestion(level); // Montrer la prochaine question
+    }, 2000);
 }
 
 window.onload = function() {
