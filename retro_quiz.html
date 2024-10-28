@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu de Quiz de Jeux Vidéo</title> <!-- Updated title for clarity -->
+    <title>Jeu de Quiz</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRkYDUgNu17H9GR+h9jjXx/c0sv4FfdOB2DWwbC5P" crossorigin="anonymous">
 </head>
 <body>
-    <header class="intro show" aria-label="Écran d'introduction">
+    <header class="intro show">
         <img src="intro_image.png" alt="Image d'introduction" loading="lazy" style="width: 100%; max-width: 600px;">
         <p class="intro-title">Studio Jahmora Production 🎮</p>
-        <audio id="intro-music" src="intro_music.mp3" autoplay loop controls></audio> <!-- Added controls for user experience -->
+        <audio id="intro-music" src="intro_music.mp3" autoplay loop></audio>
     </header>
 
-    <main id="start-container" class="hidden" aria-labelledby="welcome-heading">
-        <h1 id="welcome-heading">Bienvenue au Quiz de Jeux Vidéo</h1>
+    <main id="start-container" class="hidden">
+        <h1 id="welcome-message">Bienvenue au Quiz de Jeux Vidéo</h1> <!-- ID ajouté -->
         <img src="https://example.com/start_image.png" alt="Image de démarrage" class="start-image" loading="lazy">
-        <label for="level">Choisissez un niveau:</label>
+        <label id="level-label" for="level">Choisissez un niveau:</label> <!-- ID ajouté -->
         <select id="level" aria-label="Sélectionnez le niveau de difficulté">
             <option value="Facile">Facile 🟢</option>
             <option value="Moyen">Moyen 🟡</option>
@@ -39,12 +39,13 @@
     <footer class="end-screen hidden"> 
         <h2>Fin du Jeu!</h2>
         <p id="final-score"></p>
+        <p id="end-game-message"></p> <!-- ID ajouté -->
         <button id="play-again" class="button" type="button">Rejouer</button>
         <button id="menu" class="button" type="button">Retour au menu principal</button>
     </footer>
 
     <!-- Inclusion des fichiers JavaScript -->
-    <script src="translations.js"></script>
+    <script src="translation.js"></script>
     <script src="questions.js"></script>
     <script src="main.js"></script>
 </body>
