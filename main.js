@@ -1,5 +1,3 @@
-// main.js
-
 let questionCount = 0;
 let score = 0;
 let totalQuestions = 0;
@@ -10,48 +8,53 @@ const incorrectSound = new Audio('incorrect.mp3');
 // Détecte la langue du navigateur ou utilise 'fr' par défaut
 let language = navigator.language.startsWith('fr') ? 'fr' : 'en';
 
-// Charge les traductions de texte
+document.addEventListener('DOMContentLoaded', () => {
+    loadTexts(); // Charge les textes en fonction de la langue
+
+    // Démarre le jeu après l'écran d'introduction
+    setTimeout(() => {
+        toggleVisibility(document.querySelector('.intro'), false);
+        toggleVisibility(document.getElementById('start-container'), true);
+    }, 10000);
+
+    document.getElementById('start').addEventListener('click', startGame);
+    document.getElementById('play-again').addEventListener('click', resetGame);
+    document.getElementById('menu').addEventListener('click', resetGame);
+});
+
 function loadTexts() {
-    document.querySelector('h1').innerText = translations[language].welcome;
-    document.querySelector('label[for="level"]').innerText = translations[language].chooseLevel;
+    document.getElementById('welcome-message').innerText = translations[language].welcome;
+    document.getElementById('level-label').innerText = translations[language].chooseLevel;
     document.getElementById('level').options[0].text = translations[language].easy;
     document.getElementById('level').options[1].text = translations[language].medium;
     document.getElementById('level').options[2].text = translations[language].hard;
     document.getElementById('score').innerText = `${translations[language].score}: 0`;
-    document.querySelector('.end-screen h2').innerText = translations[language].endGame;
+    document.getElementById('end-game-message').innerText = translations[language].endGame;
     document.getElementById('play-again').innerText = translations[language].playAgain;
     document.getElementById('menu').innerText = translations[language].backToMenu;
 }
 
-// Affiche l'écran d'introduction pendant 10 secondes
-setTimeout(() => {
-    toggleVisibility(intro, false);
-    toggleVisibility(startContainer, true);
-}, 10000);
-
-// Gère la visibilité des éléments
 function toggleVisibility(element, isVisible) {
     element.classList.toggle('show', isVisible);
     element.classList.toggle('hidden', !isVisible);
 }
 
-// Logique pour démarrer le jeu
-document.getElementById('start').addEventListener('click', () => {
+function startGame() {
     const level = document.getElementById('level').value;
+    questionCount = 0;
+    score = 0;
+    totalQuestions = questions[language][level].length;
 
     if (!questions[language][level]) {
-        alert("Niveau invalide. Veuillez sélectionner un niveau valide.");
+        alert(translations[language].invalidLevel || "Invalid level selected");
         return;
     }
 
-    toggleVisibility(startContainer, false);
-    toggleVisibility(gameContainer, true);
-
-    totalQuestions = questions[language][level].length;
+    toggleVisibility(document.getElementById('start-container'), false);
+    toggleVisibility(document.querySelector('.game-container'), true);
     displayQuestion(questions[language][level][questionCount]);
-});
+}
 
-// Fonction pour afficher une question
 function displayQuestion(question) {
     document.getElementById('question').innerText = question.question;
     const choicesElement = document.getElementById('choices');
@@ -66,24 +69,19 @@ function displayQuestion(question) {
     });
 }
 
-// Fonction pour gérer les réponses
 async function handleAnswer(selected, correct) {
-    const choicesButtons = document.querySelectorAll('.choices-button');
-
     if (selected === correct) {
         score++;
-        resultElement.innerText = 'Correct !';
+        document.getElementById('result').innerText = 'Correct !';
         correctSound.play();
     } else {
-        resultElement.innerText = 'Incorrect !';
+        document.getElementById('result').innerText = 'Incorrect !';
         incorrectSound.play();
     }
 
-    scoreElement.innerText = `${translations[language].score}: ${score}`;
-    document.querySelector('.score-fill').style.width = `${(score / totalQuestions) * 100}%`;
-
-    // Avance à la question suivante
+    document.getElementById('score').innerText = `${translations[language].score}: ${score}`;
     questionCount++;
+
     const level = document.getElementById('level').value;
     if (questionCount < totalQuestions) {
         displayQuestion(questions[language][level][questionCount]);
@@ -92,12 +90,16 @@ async function handleAnswer(selected, correct) {
     }
 }
 
-// Fonction pour terminer le jeu
 function endGame() {
-    toggleVisibility(gameContainer, false);
-    toggleVisibility(endScreen, true);
+    toggleVisibility(document.querySelector('.game-container'), false);
+    toggleVisibility(document.querySelector('.end-screen'), true);
     document.getElementById('final-score').innerText = `${translations[language].score}: ${score} / ${totalQuestions}`;
 }
 
-// Initialisation des textes au chargement
-document.addEventListener('DOMContentLoaded', loadTexts);
+function resetGame() {
+    questionCount = 0;
+    score = 0;
+    document.getElementById('score').innerText = `${translations[language].score}: 0`;
+    toggleVisibility(document.querySelector('.end-screen'), false);
+    toggleVisibility(document.getElementById('start-container'), true);
+}
