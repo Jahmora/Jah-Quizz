@@ -55,7 +55,17 @@ function startGame() {
     displayQuestion(questions[language][level][questionCount]);
 }
 
-function displayQuestion(question) {
+async function displayQuestion(question) {
+    const loadingScreen = document.querySelector('.loading');
+    toggleVisibility(loadingScreen, true); // Affiche l'écran de chargement
+
+    // Simule un délai pour l'écran de chargement
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Affiche la question après le délai
+    loadingScreen.classList.remove('show');
+    loadingScreen.classList.add('hidden');
+
     document.getElementById('question').innerText = question.question;
     const choicesElement = document.getElementById('choices');
     choicesElement.innerHTML = '';
@@ -70,6 +80,12 @@ function displayQuestion(question) {
 }
 
 async function handleAnswer(selected, correct) {
+    const loadingScreen = document.querySelector('.loading');
+    toggleVisibility(loadingScreen, true); // Affiche l'écran de chargement
+
+    // Simule un délai avant d'afficher le résultat
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     if (selected === correct) {
         score++;
         document.getElementById('result').innerText = 'Correct !';
