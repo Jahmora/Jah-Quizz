@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Quiz</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRkYDUgNu17H9GR+h9jjXx/c0sv4FfdOB2DWwbC5P" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"> <!-- Version mise à jour -->
 </head>
 <body>
     <header class="intro show">
@@ -15,9 +15,9 @@
     </header>
 
     <main id="start-container" class="hidden">
-        <h1 id="welcome-message">Bienvenue au Quiz de Jeux Vidéo</h1> <!-- ID ajouté -->
+        <h1 id="welcome-message">Bienvenue au Quiz de Jeux Vidéo</h1>
         <img src="https://example.com/start_image.png" alt="Image de démarrage" class="start-image" loading="lazy">
-        <label id="level-label" for="level">Choisissez un niveau:</label> <!-- ID ajouté -->
+        <label id="level-label" for="level">Choisissez un niveau:</label>
         <select id="level" aria-label="Sélectionnez le niveau de difficulté">
             <option value="Facile">Facile 🟢</option>
             <option value="Moyen">Moyen 🟡</option>
@@ -39,13 +39,13 @@
     <footer class="end-screen hidden"> 
         <h2>Fin du Jeu!</h2>
         <p id="final-score"></p>
-        <p id="end-game-message"></p> <!-- ID ajouté -->
+        <p id="end-game-message"></p>
         <button id="play-again" class="button" type="button">Rejouer</button>
         <button id="menu" class="button" type="button">Retour au menu principal</button>
     </footer>
 
     <!-- Inclusion des fichiers JavaScript -->
-    <script src="translations.js"></script>
+    <script src="translation.js"></script>
     <script src="questions.js"></script>
     <script src="main.js"></script>
 </body>
