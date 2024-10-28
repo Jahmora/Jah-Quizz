@@ -46,7 +46,7 @@ function startGame() {
     totalQuestions = questions[language][level].length;
 
     if (!questions[language][level]) {
-        alert(translations[language].invalidLevel || "Invalid level selected");
+        alert(translations[language].invalidLevel || "Niveau invalide sélectionné");
         return;
     }
 
