@@ -2,10 +2,11 @@ let questionCount = 0;
 let score = 0;
 let totalQuestions = 0;
 
+// Sons
 const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
 
-// Référence aux éléments pour éviter les répétitions
+// Référence aux éléments
 const intro = document.querySelector('.intro');
 const startContainer = document.getElementById('start-container');
 const gameContainer = document.querySelector('.game-container');
@@ -17,7 +18,7 @@ const scoreElement = document.getElementById('score');
 setTimeout(() => {
     toggleVisibility(intro, false);
     toggleVisibility(startContainer, true);
-}, 10000); // 10 secondes
+}, 10000);
 
 // Gère la visibilité des éléments
 function toggleVisibility(element, isVisible) {
@@ -28,22 +29,23 @@ function toggleVisibility(element, isVisible) {
 // Logique pour démarrer le jeu
 document.getElementById('start').addEventListener('click', () => {
     const level = document.getElementById('level').value;
+    const lang = document.documentElement.lang; // Obtenir la langue actuelle
 
-    if (!questions['fr'][level]) {
-        alert("Niveau invalide. Veuillez sélectionner un niveau valide.");
+    if (!questions[lang][level]) {
+        alert(translations[lang].invalidLevel);
         return;
     }
 
     toggleVisibility(startContainer, false);
     toggleVisibility(gameContainer, true);
 
-    totalQuestions = questions['fr'][level].length;
-
-    displayQuestion(questions['fr'][level][questionCount]);
+    totalQuestions = questions[lang][level].length;
+    displayQuestion(questions[lang][level][questionCount]);
 });
 
 // Fonction pour afficher une question
 function displayQuestion(question) {
+    const lang = document.documentElement.lang; // Obtenir la langue actuelle
     document.getElementById('question').innerText = question.question;
     const choicesElement = document.getElementById('choices');
     choicesElement.innerHTML = '';
@@ -59,21 +61,22 @@ function displayQuestion(question) {
 
 // Fonction pour gérer les réponses
 async function handleAnswer(selected, correct) {
+    const lang = document.documentElement.lang; // Obtenir la langue actuelle
     const choicesButtons = document.querySelectorAll('.choices-button');
 
     choicesButtons.forEach(button => {
-        button.classList.remove('correct-animation', 'incorrect-animation'); // Réinitialiser les animations
+        button.classList.remove('correct-animation', 'incorrect-animation');
     });
 
     if (selected === correct) {
         score++;
-        resultElement.innerText = 'Correct !';
+        resultElement.innerText = translations[lang].correct;
         correctSound.play();
-        choicesButtons[selected].classList.add('correct-animation'); // Animation pour la réponse correcte
+        choicesButtons[selected].classList.add('correct-animation');
     } else {
-        resultElement.innerText = 'Incorrect !';
+        resultElement.innerText = translations[lang].incorrect;
         incorrectSound.play();
-        choicesButtons[selected].classList.add('incorrect-animation'); // Animation pour la réponse incorrecte
+        choicesButtons[selected].classList.add('incorrect-animation');
     }
 
     scoreElement.innerText = `Score : ${score}`;
@@ -83,13 +86,11 @@ async function handleAnswer(selected, correct) {
     const loadingContainer = document.createElement('div');
     loadingContainer.className = 'loading-container';
 
-    // Message de chargement
     const loadingMessage = document.createElement('div');
-    loadingMessage.innerText = 'Chargement de la prochaine question...';
+    loadingMessage.innerText = translations[lang].loadingMessage;
     loadingMessage.className = 'loading-message';
     loadingContainer.appendChild(loadingMessage);
 
-    // Barre de chargement
     const loadingBar = document.createElement('div');
     loadingBar.className = 'loading-bar';
     const loadingFill = document.createElement('div');
@@ -100,18 +101,16 @@ async function handleAnswer(selected, correct) {
 
     // Remplir la barre de chargement progressivement
     for (let i = 0; i <= 100; i++) {
-        await new Promise(resolve => setTimeout(resolve, 10)); // 10ms pour un effet plus fluide
-        loadingFill.style.width = `${i}%`; // Met à jour la largeur de la barre
+        await new Promise(resolve => setTimeout(resolve, 10));
+        loadingFill.style.width = `${i}%`;
     }
 
-    // Retirer le conteneur de chargement
     loadingContainer.remove();
 
-    // Avancer à la prochaine question
     questionCount++;
     const level = document.getElementById('level').value;
     if (questionCount < totalQuestions) {
-        displayQuestion(questions['fr'][level][questionCount]);
+        displayQuestion(questions[lang][level][questionCount]);
     } else {
         endGame();
     }
@@ -121,7 +120,8 @@ async function handleAnswer(selected, correct) {
 function endGame() {
     toggleVisibility(gameContainer, false);
     toggleVisibility(endScreen, true);
-    document.getElementById('final-score').innerText = `Votre score : ${score} / ${totalQuestions}`;
+    const lang = document.documentElement.lang; // Obtenir la langue actuelle
+    document.getElementById('final-score').innerText = `${translations[lang].finalScore} ${score} / ${totalQuestions}`;
 }
 
 // Fonction pour réinitialiser le jeu
@@ -137,4 +137,3 @@ function resetGame() {
 // Événements pour rejouer et retourner au menu principal
 document.getElementById('play-again').addEventListener('click', resetGame);
 document.getElementById('menu').addEventListener('click', resetGame);
-
