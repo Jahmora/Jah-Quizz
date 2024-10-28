@@ -1,28 +1,27 @@
-// translations.js
-
+// translation.js
 const translations = {
     fr: {
-        levelSelect: "Choisissez un niveau:",
-        invalidLevel: "Niveau invalide. Veuillez sélectionner un niveau valide.",
-        correct: "Correct !",
-        incorrect: "Incorrect !",
-        loadingMessage: "Chargement de la prochaine question...",
-        finalScore: "Votre score :",
+        welcome: "Bienvenue au Quiz de Jeux Vidéo",
+        chooseLevel: "Choisissez un niveau:",
+        easy: "Facile 🟢",
+        medium: "Moyen 🟡",
+        hard: "Difficile 🔴",
+        score: "Score",
+        endGame: "Fin du Jeu!",
         playAgain: "Rejouer",
-        mainMenu: "Retour au menu principal",
-        introTitle: "Studio Jahmora Production 🎮",
-        welcomeMessage: "Bienvenue au Quiz de Jeux Vidéo"
+        backToMenu: "Retour au menu principal",
+        loadingNextQuestion: "Chargement de la prochaine question..."
     },
     en: {
-        levelSelect: "Select a level:",
-        invalidLevel: "Invalid level. Please select a valid level.",
-        correct: "Correct!",
-        incorrect: "Incorrect!",
-        loadingMessage: "Loading the next question...",
-        finalScore: "Your score:",
+        welcome: "Welcome to the Video Game Quiz",
+        chooseLevel: "Choose a level:",
+        easy: "Easy 🟢",
+        medium: "Medium 🟡",
+        hard: "Hard 🔴",
+        score: "Score",
+        endGame: "Game Over!",
         playAgain: "Play Again",
-        mainMenu: "Back to Main Menu",
-        introTitle: "Studio Jahmora Production 🎮",
-        welcomeMessage: "Welcome to the Video Game Quiz"
+        backToMenu: "Back to Main Menu",
+        loadingNextQuestion: "Loading the next question..."
     }
 };
