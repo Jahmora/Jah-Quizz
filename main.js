@@ -29,7 +29,7 @@ function toggleVisibility(element, isVisible) {
 // Logique pour démarrer le jeu
 document.getElementById('start').addEventListener('click', () => {
     const level = document.getElementById('level').value;
-    const lang = document.documentElement.lang; // Obtenir la langue actuelle
+    const lang = document.getElementById('language').value; // Récupérer la langue sélectionnée
 
     if (!questions[lang][level]) {
         alert(translations[lang].invalidLevel);
@@ -40,12 +40,11 @@ document.getElementById('start').addEventListener('click', () => {
     toggleVisibility(gameContainer, true);
 
     totalQuestions = questions[lang][level].length;
-    displayQuestion(questions[lang][level][questionCount]);
+    displayQuestion(questions[lang][level][questionCount], lang); // Passer la langue à displayQuestion
 });
 
 // Fonction pour afficher une question
-function displayQuestion(question) {
-    const lang = document.documentElement.lang; // Obtenir la langue actuelle
+function displayQuestion(question, lang) {
     document.getElementById('question').innerText = question.question;
     const choicesElement = document.getElementById('choices');
     choicesElement.innerHTML = '';
@@ -54,29 +53,28 @@ function displayQuestion(question) {
         const button = document.createElement('button');
         button.innerText = choice;
         button.className = 'choices-button button';
-        button.onclick = () => handleAnswer(index, question.answer);
+        button.onclick = () => handleAnswer(index, question.answer, lang); // Passer la langue à handleAnswer
         choicesElement.appendChild(button);
     });
 }
 
 // Fonction pour gérer les réponses
-async function handleAnswer(selected, correct) {
-    const lang = document.documentElement.lang; // Obtenir la langue actuelle
+async function handleAnswer(selected, correct, lang) {
     const choicesButtons = document.querySelectorAll('.choices-button');
 
     choicesButtons.forEach(button => {
-        button.classList.remove('correct-animation', 'incorrect-animation');
+        button.classList.remove('correct-animation', 'incorrect-animation'); // Réinitialiser les animations
     });
 
     if (selected === correct) {
         score++;
         resultElement.innerText = translations[lang].correct;
         correctSound.play();
-        choicesButtons[selected].classList.add('correct-animation');
+        choicesButtons[selected].classList.add('correct-animation'); // Animation pour la réponse correcte
     } else {
         resultElement.innerText = translations[lang].incorrect;
         incorrectSound.play();
-        choicesButtons[selected].classList.add('incorrect-animation');
+        choicesButtons[selected].classList.add('incorrect-animation'); // Animation pour la réponse incorrecte
     }
 
     scoreElement.innerText = `Score : ${score}`;
@@ -86,11 +84,13 @@ async function handleAnswer(selected, correct) {
     const loadingContainer = document.createElement('div');
     loadingContainer.className = 'loading-container';
 
+    // Message de chargement
     const loadingMessage = document.createElement('div');
     loadingMessage.innerText = translations[lang].loadingMessage;
     loadingMessage.className = 'loading-message';
     loadingContainer.appendChild(loadingMessage);
 
+    // Barre de chargement
     const loadingBar = document.createElement('div');
     loadingBar.className = 'loading-bar';
     const loadingFill = document.createElement('div');
@@ -101,26 +101,27 @@ async function handleAnswer(selected, correct) {
 
     // Remplir la barre de chargement progressivement
     for (let i = 0; i <= 100; i++) {
-        await new Promise(resolve => setTimeout(resolve, 10));
-        loadingFill.style.width = `${i}%`;
+        await new Promise(resolve => setTimeout(resolve, 10)); // 10ms pour un effet plus fluide
+        loadingFill.style.width = `${i}%`; // Met à jour la largeur de la barre
     }
 
+    // Retirer le conteneur de chargement
     loadingContainer.remove();
 
+    // Avancer à la prochaine question
     questionCount++;
     const level = document.getElementById('level').value;
     if (questionCount < totalQuestions) {
-        displayQuestion(questions[lang][level][questionCount]);
+        displayQuestion(questions[lang][level][questionCount], lang); // Passer la langue pour la prochaine question
     } else {
-        endGame();
+        endGame(lang);
     }
 }
 
 // Fonction pour terminer le jeu
-function endGame() {
+function endGame(lang) {
     toggleVisibility(gameContainer, false);
     toggleVisibility(endScreen, true);
-    const lang = document.documentElement.lang; // Obtenir la langue actuelle
     document.getElementById('final-score').innerText = `${translations[lang].finalScore} ${score} / ${totalQuestions}`;
 }
 
